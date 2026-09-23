@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
             getWindow().setNavigationBarContrastEnforced(false);
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            getWindow().setDecorFitsSystemWindows(true);
+            getWindow().setDecorFitsSystemWindows(false);
         }
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
@@ -57,9 +57,11 @@ public class MainActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         root.setOnApplyWindowInsetsListener((view, insets) -> {
+            int topInset = insets.getSystemWindowInsetTop();
             int bottomInset = insets.getSystemWindowInsetBottom();
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) webView.getLayoutParams();
-            params.bottomMargin = bottomInset + dp(10);
+            params.topMargin = topInset;
+            params.bottomMargin = bottomInset + dp(4);
             webView.setLayoutParams(params);
             return insets;
         });
