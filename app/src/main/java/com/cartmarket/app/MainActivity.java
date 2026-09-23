@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setLoadWithOverviewMode(false);
         settings.setUseWideViewPort(false);
-        settings.setTextZoom(100);
+        settings.setTextZoom(105);
         webView.setInitialScale(100);
 
         CookieManager cookies = CookieManager.getInstance();
