@@ -3,7 +3,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="false"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/cartmarket_launcher"
+        android:roundIcon="@drawable/cartmarket_launcher"
         android:label="카트마켓"
         android:supportsRtl="true"
         android:theme="@style/Theme.CartMarket"
