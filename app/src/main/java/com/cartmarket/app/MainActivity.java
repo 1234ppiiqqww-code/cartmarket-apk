@@ -1,24 +1,34 @@
 package com.cartmarket.app;
 
-import android.Manifest;\nimport android.app.Activity;\nimport android.app.Notification;\nimport android.app.NotificationChannel;\nimport android.app.NotificationManager;
-import android.content.Intent;\nimport android.content.pm.PackageManager;
+import android.Manifest;
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;\nimport android.widget.Toast;
-import android.webkit.CookieManager;\nimport android.webkit.JavascriptInterface;
+import android.widget.FrameLayout;
+import android.widget.Toast;
+import android.webkit.CookieManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;\nimport android.webkit.WebSettings;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
     private static final String APP_URL = "https://cartmarket-shared.gso8022.chatgpt.site/app.html";
-    private static final int FILE_CHOOSER_REQUEST = 1001;\n    private static final int NOTIFICATION_PERMISSION_REQUEST = 1002;\n    private static final String CHAT_CHANNEL_ID = \"cartmarket_chat\";
+    private static final int FILE_CHOOSER_REQUEST = 1001;
+    private static final int NOTIFICATION_PERMISSION_REQUEST = 1002;
+    private static final String CHAT_CHANNEL_ID = \"cartmarket_chat\";
 
     private WebView webView;
     private ValueCallback<Uri[]> fileCallback;
@@ -54,7 +64,11 @@ public class MainActivity extends Activity {
             return insets;
         });
         setContentView(root);
-        root.requestApplyInsets();\n        createNotificationChannel();\n        if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {\n            requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_REQUEST);\n        }
+        root.requestApplyInsets();
+        createNotificationChannel();
+        if (Build.VERSION.SDK_INT >= 33 && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_REQUEST);
+        }
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -66,7 +80,8 @@ public class MainActivity extends Activity {
         settings.setLoadWithOverviewMode(false);
         settings.setUseWideViewPort(false);
         settings.setTextZoom(100);
-        webView.setInitialScale(0);\n        webView.addJavascriptInterface(new CartMarketBridge(), \"CartMarketAndroid\");
+        webView.setInitialScale(0);
+        webView.addJavascriptInterface(new CartMarketBridge(), \"CartMarketAndroid\");
 
         CookieManager cookies = CookieManager.getInstance();
         cookies.setAcceptCookie(true);
