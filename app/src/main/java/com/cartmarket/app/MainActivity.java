@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.view.WindowInsets;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -13,7 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
-    private static final String APP_URL = "https://cartmarket-shared.gso8022.chatgpt.site";
+    private static final String APP_URL = "https://cartmarket-shared.gso8022.chatgpt.site/app.html";
     private static final int FILE_CHOOSER_REQUEST = 1001;
 
     private WebView webView;
@@ -22,8 +24,20 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().setStatusBarColor(Color.WHITE);
+        getWindow().setNavigationBarColor(Color.WHITE);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+
         webView = new WebView(this);
         webView.setBackgroundColor(Color.WHITE);
+        webView.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        webView.setOnApplyWindowInsetsListener((view, insets) -> {
+            int bottomInset = insets.getSystemWindowInsetBottom();
+            view.setPadding(0, 0, 0, bottomInset);
+            return insets;
+        });
         setContentView(webView);
 
         WebSettings settings = webView.getSettings();
@@ -33,13 +47,15 @@ public class MainActivity extends Activity {
         settings.setAllowFileAccess(false);
         settings.setAllowContentAccess(true);
         settings.setMediaPlaybackRequiresUserGesture(false);
-        settings.setLoadWithOverviewMode(true);
-        settings.setUseWideViewPort(true);
+        settings.setLoadWithOverviewMode(false);
+        settings.setUseWideViewPort(false);
+        settings.setTextZoom(90);
 
         CookieManager cookies = CookieManager.getInstance();
         cookies.setAcceptCookie(true);
         cookies.setAcceptThirdPartyCookies(webView, true);
 
+        webView.clearCache(true);
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
