@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
     private static final String APP_URL = "https://cartmarket-shared.gso8022.chatgpt.site/app.html";
     private static final int FILE_CHOOSER_REQUEST = 1001;
     private static final int NOTIFICATION_PERMISSION_REQUEST = 1002;
-    private static final String CHAT_CHANNEL_ID = \"cartmarket_chat\";
+    private static final String CHAT_CHANNEL_ID = "cartmarket_chat";
 
     private WebView webView;
     private ValueCallback<Uri[]> fileCallback;
@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
         settings.setUseWideViewPort(false);
         settings.setTextZoom(100);
         webView.setInitialScale(0);
-        webView.addJavascriptInterface(new CartMarketBridge(), \"CartMarketAndroid\");
+        webView.addJavascriptInterface(new CartMarketBridge(), "CartMarketAndroid");
 
         CookieManager cookies = CookieManager.getInstance();
         cookies.setAcceptCookie(true);
